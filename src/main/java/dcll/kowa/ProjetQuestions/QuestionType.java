@@ -34,7 +34,7 @@ public enum QuestionType {
     }
 
     /**
-     * Get the code of que question type
+     * Get the code of the question type
      *
      * @return the code
      */
