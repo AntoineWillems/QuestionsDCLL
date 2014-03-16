@@ -31,11 +31,22 @@ public class DefaultAnswerTest extends TestCase{
 	
 	
 	public void testEquals(){
+		assertEquals("Est ce que testEquals est correct",true, defaultAnswer.equals(defaultAnswer));
+		assertEquals("Est ce que testEquals est correct",false, defaultAnswer.equals(null));
+		String s = "s";
+		assertEquals("Est ce que testEquals est correct",false, defaultAnswer.equals(s));
 		
+		DefaultAnswer da = new DefaultAnswer();
+		da.setIdentifier("OtherId");
+		assertEquals("Est ce que testEquals est correct",false, defaultAnswer.equals(da));
+		
+		DefaultAnswer da1 = new DefaultAnswer();
+		da1.setIdentifier("id1");
+		assertEquals("Est ce que testEquals est correct",true, defaultAnswer.equals(da1));
 	}
 	
 	public void testHashCode(){
-		
+		assertEquals("Est ce que HashCode est correct","id1".hashCode(), defaultAnswer.hashCode());
 	}
 	
 	public void testGetTextValue(){
