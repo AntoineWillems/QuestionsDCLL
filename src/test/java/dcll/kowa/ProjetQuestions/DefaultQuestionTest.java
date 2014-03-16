@@ -13,43 +13,42 @@ import dcll.kowa.ProjetQuestions.impl.DefaultQuestion;
 public class DefaultQuestionTest {
 
 	@Test
-	public void testgetTitle(){
+	public void testGetTitle() {
 		DefaultQuestion dq = new DefaultQuestion();
 		dq.setTitle("");
-	assertEquals("",dq.getTitle());
+		assertEquals("",dq.getTitle());
 	}
-	
+
 	@Test
-	public void testgetQuestionType(){
+	public void testGetQuestionType() {
 		DefaultQuestion dq = new DefaultQuestion();
 		dq.setQuestionType(QuestionType.TrueFalse);
 	    assertEquals(QuestionType.TrueFalse,dq.getQuestionType());
 	}
-	
+
 	@Test
-	public void testgetBlockList(){
-		DefaultQuestion dq = new DefaultQuestion();
-		List<QuestionBlock> blockList = new ArrayList<QuestionBlock>();
-	      assertEquals(blockList,dq.getBlockList());
-	}
-	
-	
-	@Test
-	public void testsetTitle(){
-		DefaultQuestion dq = new DefaultQuestion();
-		dq.setTitle("test");
-	assertTrue(dq.getTitle()=="test");
-	}
-	
-	@Test
-	public void testsetQuestionType(){
+	public void testSetQuestionType() {
 		DefaultQuestion dq = new DefaultQuestion();
 		dq.setQuestionType(QuestionType.TrueFalse);
-	assertTrue(dq.getQuestionType()==QuestionType.TrueFalse);
+		assertTrue(dq.getQuestionType()==QuestionType.TrueFalse);
 	}
-	
+
 	@Test
-	public void testaddAnswerBlock(){
+	public void testSetTitle() {
+		DefaultQuestion dq = new DefaultQuestion();
+		dq.setTitle("test");
+		assertTrue(dq.getTitle()=="test");
+	}
+
+	@Test
+	public void testGetBlockList() {
+		DefaultQuestion dq = new DefaultQuestion();
+		List<QuestionBlock> blockList = new ArrayList<QuestionBlock>();
+	    assertEquals(blockList,dq.getBlockList());
+	}
+
+	@Test
+	public void testAddAnswerBlock() {
 		AnswerBlock fragment = new DefaultAnswerBlock();
 		List<QuestionBlock> blockList = new ArrayList<QuestionBlock>();
 		List<AnswerBlock> answerBlockList = new ArrayList<AnswerBlock>();
@@ -57,6 +56,21 @@ public class DefaultQuestionTest {
 		answerBlockList.add(fragment);
 		assertEquals(blockList.size(),1);
 		assertEquals(answerBlockList.size(),1);
+	}
+
+	@Test
+	public void testAddTextBlock() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetAnswerBlockList() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetTextBlockList() {
+		fail("Not yet implemented");
 	}
 
 }
