@@ -1,15 +1,15 @@
 package dcll.kowa.ProjetQuestions;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import junit.framework.TestCase;
 
 import org.junit.Test;
 
 import dcll.kowa.ProjetQuestions.impl.DefaultQuestion;
 
-public class DefaultQuizTest {
+public class DefaultQuizTest extends TestCase {
 
 	@Test
 	public void testAddQuestion() {

@@ -1,16 +1,16 @@
 package dcll.kowa.ProjetQuestions;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import junit.framework.TestCase;
 
 import org.junit.Test;
 
 import dcll.kowa.ProjetQuestions.impl.DefaultAnswerBlock;
 import dcll.kowa.ProjetQuestions.impl.DefaultQuestion;
 
-public class DefaultQuestionTest {
+public class DefaultQuestionTest extends TestCase{
 
 	@Test
 	public void testGetTitle() {
@@ -49,28 +49,33 @@ public class DefaultQuestionTest {
 
 	@Test
 	public void testAddAnswerBlock() {
+		DefaultQuestion dq = new DefaultQuestion();
 		AnswerBlock fragment = new DefaultAnswerBlock();
-		List<QuestionBlock> blockList = new ArrayList<QuestionBlock>();
-		List<AnswerBlock> answerBlockList = new ArrayList<AnswerBlock>();
-		blockList.add(fragment);
-		answerBlockList.add(fragment);
-		assertEquals(blockList.size(),1);
-		assertEquals(answerBlockList.size(),1);
+		dq.addAnswerBlock(fragment);
+		
+		assertEquals(fragment,dq.getBlockList().get(0));
+		assertEquals(fragment,dq.getAnswerBlockList().get(0));
+		
+
 	}
 
 	@Test
 	public void testAddTextBlock() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testGetAnswerBlockList() {
-		fail("Not yet implemented");
+		DefaultQuestion dq = new DefaultQuestion();
+		List<AnswerBlock> answerBlockList = new ArrayList<AnswerBlock>();
+	    assertEquals(answerBlockList,dq.getAnswerBlockList());
 	}
 
 	@Test
 	public void testGetTextBlockList() {
-		fail("Not yet implemented");
+		DefaultQuestion dq = new DefaultQuestion();
+		List<TextBlock> textBlockList = new ArrayList<TextBlock>();
+	    assertEquals(textBlockList,dq.getTextBlockList());
 	}
 
 }
