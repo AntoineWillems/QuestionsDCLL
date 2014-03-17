@@ -8,15 +8,16 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import dcll.kowa.ProjetQuestions.impl.DefaultQuestion;
+import dcll.kowa.ProjetQuestions.impl.DefaultQuiz;
 
 public class DefaultQuizTest extends TestCase {
 
 	@Test
 	public void testAddQuestion() {
 		Question qq = new DefaultQuestion();
-		List<Question> questionList = new ArrayList<Question>();
-		questionList.add(qq);
-		assertEquals(questionList.size(),1);
+		DefaultQuiz dqq = new DefaultQuiz();
+		dqq.addQuestion(qq);
+		assertEquals(qq,dqq.getQuestionList().get(0));
 	}
 
 	@Test
