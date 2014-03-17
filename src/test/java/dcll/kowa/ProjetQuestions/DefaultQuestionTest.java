@@ -61,7 +61,12 @@ public class DefaultQuestionTest extends TestCase{
 
 	@Test
 	public void testAddTextBlock() {
+		DefaultQuestion dq = new DefaultQuestion();
+		TextBlock fragment = (TextBlock) new DefaultQuestion();
+		dq.addTextBlock(fragment);
 		
+		assertEquals(fragment,dq.getBlockList().get(0));
+		assertEquals(fragment,dq.getTextBlockList().get(0));
 	}
 
 	@Test
