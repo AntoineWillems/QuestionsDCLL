@@ -38,7 +38,7 @@ public class DefaultUserResponse implements UserResponse {
      *
      * @return the user identifier
      */
-    public String getUserIdentifier() {
+    public  final String getUserIdentifier() {
         return userIdentifier;
     }
 
@@ -47,7 +47,7 @@ public class DefaultUserResponse implements UserResponse {
      *
      * @return the question the response is for
      */
-    public Question getQuestion() {
+    public final Question getQuestion() {
         return question;
     }
 
@@ -56,7 +56,7 @@ public class DefaultUserResponse implements UserResponse {
      *
      * @return the user answer block list
      */
-    public List<UserAnswerBlock> getUserAnswerBlockList() {
+    public final List<UserAnswerBlock> getUserAnswerBlockList() {
         return userAnswerBlockList;
     }
 
@@ -65,7 +65,7 @@ public class DefaultUserResponse implements UserResponse {
      * Set the user identifier
      * @param userIdentifier the user identifier
      */
-    public void setUserIdentifier(String userIdentifier) {
+    public final void setUserIdentifier(String userIdentifier) {
         this.userIdentifier = userIdentifier;
     }
 
@@ -73,7 +73,7 @@ public class DefaultUserResponse implements UserResponse {
      * Set the question
      * @param question the question
      */
-    public void setQuestion(Question question) {
+    public final void setQuestion(Question question) {
         this.question = question;
     }
 
@@ -82,11 +82,11 @@ public class DefaultUserResponse implements UserResponse {
     /**
      * Get the percent credit the user receive for his answers on the question
      *
-     * @return
+     * @return Float
      */
-    public Float evaluatePercentCredit() {
+    public final Float evaluatePercentCredit() {
         Float res = 0f;
-        for(UserAnswerBlock userAnswerBlock : userAnswerBlockList) {
+        for (UserAnswerBlock userAnswerBlock : userAnswerBlockList) {
           res += userAnswerBlock.evaluatePercentCredit();
         }
         return res;

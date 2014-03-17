@@ -20,7 +20,11 @@ package dcll.kowa.ProjetQuestions;
  * @author franck Silvestre
  */
 public class QuizReaderException extends Exception {
-
+	
+	/**
+	 * QuizReaderException Constructor
+	 * @param message the description of exception
+	 */
     public QuizReaderException(String message) {
         super(message);
     }
