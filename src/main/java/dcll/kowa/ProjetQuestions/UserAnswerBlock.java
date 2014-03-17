@@ -25,7 +25,7 @@ public interface UserAnswerBlock {
 
     /**
      * Get the list of answers given y the user for the current answer block
-     * @return
+     * @return List<Answer>
      */
     public List<Answer> getAnswerList();
 

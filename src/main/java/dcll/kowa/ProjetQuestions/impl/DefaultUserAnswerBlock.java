@@ -17,7 +17,6 @@
 package dcll.kowa.ProjetQuestions.impl;
 
 import dcll.kowa.ProjetQuestions.Answer;
-import dcll.kowa.ProjetQuestions.AnswerBlock;
 import dcll.kowa.ProjetQuestions.UserAnswerBlock;
 
 import java.util.ArrayList;
@@ -30,22 +29,21 @@ public class DefaultUserAnswerBlock implements UserAnswerBlock {
 
     private List<Answer> answerList = new ArrayList<Answer>();
 
-
     /**
      * Get the list of answers given y the user for the current answer block
      *
-     * @return
+     * @return List<Answer>
      */
-    public List<Answer> getAnswerList() {
+    public final List<Answer> getAnswerList() {
         return answerList;
     }
 
     /**
      * Get the percent credit the user receive for his answers on the current block
      *
-     * @return
+     * @return Float
      */
-    public Float evaluatePercentCredit() {
+    public final Float evaluatePercentCredit() {
         Float res = 0f;
         for (Answer answer : answerList) {
             res += answer.getPercentCredit();
