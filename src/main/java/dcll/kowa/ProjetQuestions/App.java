@@ -27,5 +27,25 @@ public class App
        		//System.out.println(q.getQuestionType());
        		
        		
+=======
+    	
+    	try
+    	{
+    		GiftQuestionService questionService = new GiftQuestionService();
+        
+    		String maQuestion = "{Sélectionnez les langages dynamiques | type=\"[]\"}"
+    				+ "+ Clojure."
+    				+ "- Java."
+    				+ "+ Groovy."
+    				+ "- Scala.";
+    		
+    		Question parsedQuestion = questionService.getQuestionFromGiftText(maQuestion);
+    		System.out.println(parsedQuestion.getTitle());
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.toString());
+    	}
+>>>>>>> master
     }
 }
