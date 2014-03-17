@@ -24,7 +24,7 @@ public class App
        				+ "-+ Cette extension "
        				+ " est pleine de bugs.");
        System.out.println(q.getQuestionType());
-       		//System.out.println(q.getQuestionType());
+       		System.out.println(q.getQuestionType());
        		
        		
     }
