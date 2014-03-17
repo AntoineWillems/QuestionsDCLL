@@ -21,5 +21,9 @@ package dcll.kowa.ProjetQuestions;
  */
 public interface TextBlock extends QuestionBlock {
 
+	/**
+	 * Get the text in TextBlock
+	 * @return String
+	 */
     public String getText();
 }

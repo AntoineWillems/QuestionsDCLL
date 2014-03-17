@@ -15,7 +15,24 @@ public class App
 {
     public static void main( String[] args ) throws GiftReaderException, IOException
     {
-    	System.out.println( "Hello World!" );
+    	BasicConfigurator.configure();
     	
+    	try
+    	{
+    		GiftQuestionService questionService = new GiftQuestionService();
+        
+    		String maQuestion = "{Sélectionnez les langages dynamiques | type=\"[]\"}"
+    				+ "+ Clojure."
+    				+ "- Java."
+    				+ "+ Groovy."
+    				+ "- Scala.";
+    		
+    		Question parsedQuestion = questionService.getQuestionFromGiftText(maQuestion);
+    		System.out.println(parsedQuestion.getTitle());
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.toString());
+    	}
     }
 }
