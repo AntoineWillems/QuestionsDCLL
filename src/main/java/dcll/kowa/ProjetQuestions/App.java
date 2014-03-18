@@ -27,7 +27,6 @@ public class App
        		//System.out.println(q.getQuestionType());
        		
        		
-=======
     	
     	try
     	{
@@ -46,6 +45,6 @@ public class App
     	{
     		System.out.println(e.toString());
     	}
->>>>>>> master
+
     }
 }
