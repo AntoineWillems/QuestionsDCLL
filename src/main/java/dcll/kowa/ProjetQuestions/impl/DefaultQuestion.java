@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2013 Tsaap Development Group
  *
@@ -32,7 +33,7 @@ public class DefaultQuestion implements Question {
     private List<TextBlock> textBlockList = new ArrayList<TextBlock>();
     private QuestionType questionType = QuestionType.Undefined;
 
-    /**
+    /**.
      * Get the title of the question
      *
      * @return the title of the question
@@ -41,7 +42,7 @@ public class DefaultQuestion implements Question {
         return title;
     }
 
-    /**
+    /**.
      * Get the question type
      *
      * @return the question type
@@ -50,7 +51,7 @@ public class DefaultQuestion implements Question {
         return questionType;
     }
 
-    /**
+    /**.
      * Set the question type
      * @param questionType the question type
      */
@@ -63,7 +64,7 @@ public class DefaultQuestion implements Question {
         this.title = title;
     }
 
-    /**
+    /**.
      * Get the question fragment list
      *
      * @return the question fragment list
@@ -72,7 +73,7 @@ public class DefaultQuestion implements Question {
         return blockList;
     }
 
-    /**
+    /**.
      * Add an answer fragment of the question to the question
      *
      * @param fragment the fragment to add
@@ -82,7 +83,7 @@ public class DefaultQuestion implements Question {
         answerBlockList.add(fragment);
     }
 
-    /**
+    /**.
      * Add an answer fragment of the question to the question
      *
      * @param fragment the fragment to add
@@ -92,7 +93,7 @@ public class DefaultQuestion implements Question {
         textBlockList.add(fragment);
     }
 
-    /**
+    /**.
      * Get answer fragment list
      *
      * @return the answer fragment list
@@ -101,7 +102,7 @@ public class DefaultQuestion implements Question {
         return answerBlockList;
     }
 
-    /**
+    /**.
      * Get the text fragment list
      *
      * @return the text fragment list
