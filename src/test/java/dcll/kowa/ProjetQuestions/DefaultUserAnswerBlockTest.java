@@ -5,7 +5,7 @@ import org.junit.Before;
 
 import junit.framework.TestCase;
 
-public class DefaultUserAnswerBlock extends TestCase {
+public class DefaultUserAnswerBlockTest extends TestCase {
 	
 	@Before
 	public void setUp() throws Exception {
