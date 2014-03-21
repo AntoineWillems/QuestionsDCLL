@@ -20,9 +20,12 @@ package dcll.kowa.ProjetQuestions;
  * @author franck Silvestre
  */
 public class UserResponseException extends Exception {
-
+	
+	/**
+	 * UserResponseException Constructor
+	 * @param message the description of exception
+	 */
     public UserResponseException(String message) {
         super(message);
     }
-
 }
