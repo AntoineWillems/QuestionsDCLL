@@ -27,8 +27,8 @@ public interface QuizReader {
     /**
      * Parse an input source describing a quiz
      * @param reader the input source
-     * @throws IOException
-     * @throws QuizReaderException
+     * @throws IOException exception
+     * @throws QuizReaderException exception
      */
     public void parse(Reader reader) throws IOException, QuizReaderException;
 

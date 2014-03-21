@@ -11,12 +11,16 @@ import dcll.kowa.ProjetQuestions.impl.gift.GiftReaderException;
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args ) throws GiftReaderException, IOException
-    {
+public class App {
+	/**
+	 * App Entry point
+	 * @param args App's arguments
+	 * @throws GiftReaderException possible exception
+	 * @throws IOException possible exception
+	 */
+    public static void main(String[] args) throws GiftReaderException, IOException {
     	BasicConfigurator.configure();
-        System.out.println( "Hello World!" );
+        System.out.println("Hello World!");
 
         GiftQuestionService gqs = new GiftQuestionService();
        Question q =  gqs.getQuestionFromGiftText("{ Une application possible est la création d'une liste de questions VRAI/FAUX : | type=\"()\" }"
@@ -28,8 +32,7 @@ public class App
        		
        		
     	
-    	try
-    	{
+    	try {
     		GiftQuestionService questionService = new GiftQuestionService();
         
     		String maQuestion = "{Sélectionnez les langages dynamiques | type=\"[]\"}"
@@ -40,9 +43,7 @@ public class App
     		
     		Question parsedQuestion = questionService.getQuestionFromGiftText(maQuestion);
     		System.out.println(parsedQuestion.getTitle());
-    	}
-    	catch(Exception e)
-    	{
+    	} catch (Exception e) {
     		System.out.println(e.toString());
     	}
 

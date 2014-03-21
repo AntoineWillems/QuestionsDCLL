@@ -20,7 +20,10 @@ package dcll.kowa.ProjetQuestions.impl.gift;
  * @author franck Silvestre
  */
 public class GiftReaderQuestionWithInvalidFormatException extends GiftReaderException {
-
+	
+	/**
+	 * Constructor
+	 */
     public GiftReaderQuestionWithInvalidFormatException() {
         super("Question_with_invalid_format");
     }

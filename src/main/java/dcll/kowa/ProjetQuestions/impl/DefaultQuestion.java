@@ -17,10 +17,15 @@
 
 package dcll.kowa.ProjetQuestions.impl;
 
-import  dcll.kowa.ProjetQuestions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dcll.kowa.ProjetQuestions.AnswerBlock;
+import dcll.kowa.ProjetQuestions.Question;
+import dcll.kowa.ProjetQuestions.QuestionBlock;
+import dcll.kowa.ProjetQuestions.QuestionType;
+import dcll.kowa.ProjetQuestions.TextBlock;
 
 /**
  * @author franck Silvestre
@@ -38,7 +43,7 @@ public class DefaultQuestion implements Question {
      *
      * @return the title of the question
      */
-    public String getTitle() {
+    public final String getTitle() {
         return title;
     }
 
@@ -47,7 +52,7 @@ public class DefaultQuestion implements Question {
      *
      * @return the question type
      */
-    public QuestionType getQuestionType() {
+    public final QuestionType getQuestionType() {
         return questionType;
     }
 
@@ -55,12 +60,16 @@ public class DefaultQuestion implements Question {
      * Set the question type
      * @param questionType the question type
      */
-    public void setQuestionType(QuestionType questionType) {
+    public final void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
     }
 
 
-    public void setTitle(String title) {
+    /**
+     * Title setter
+     * @param title a String
+     */
+    public final void setTitle(String title) {
         this.title = title;
     }
 
@@ -69,7 +78,7 @@ public class DefaultQuestion implements Question {
      *
      * @return the question fragment list
      */
-    public List<QuestionBlock> getBlockList() {
+    public final List<QuestionBlock> getBlockList() {
         return blockList;
     }
 
@@ -78,7 +87,7 @@ public class DefaultQuestion implements Question {
      *
      * @param fragment the fragment to add
      */
-    public void addAnswerBlock(AnswerBlock fragment) {
+    public final void addAnswerBlock(AnswerBlock fragment) {
         blockList.add(fragment);
         answerBlockList.add(fragment);
     }
@@ -88,7 +97,7 @@ public class DefaultQuestion implements Question {
      *
      * @param fragment the fragment to add
      */
-    public void addTextBlock(TextBlock fragment) {
+    public final void addTextBlock(TextBlock fragment) {
         blockList.add(fragment);
         textBlockList.add(fragment);
     }
@@ -98,7 +107,7 @@ public class DefaultQuestion implements Question {
      *
      * @return the answer fragment list
      */
-    public List<AnswerBlock> getAnswerBlockList() {
+    public final List<AnswerBlock> getAnswerBlockList() {
         return answerBlockList;
     }
 
@@ -107,7 +116,7 @@ public class DefaultQuestion implements Question {
      *
      * @return the text fragment list
      */
-    public List<TextBlock> getTextBlockList() {
+    public final List<TextBlock> getTextBlockList() {
         return textBlockList;
     }
 

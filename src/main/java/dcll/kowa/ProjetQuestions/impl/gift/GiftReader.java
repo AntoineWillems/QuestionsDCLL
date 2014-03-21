@@ -14,7 +14,13 @@ public class GiftReader implements QuizReader {
 
     private static Logger logger = Logger.getLogger(GiftReader.class);
 
-    public void parse(Reader reader) throws IOException, GiftReaderException {
+    /**
+     * parse
+     * @param reader a Reader
+     * @throws IOException an exception
+     * @throws GiftReaderException an exception
+     */
+    public final void parse(Reader reader) throws IOException, GiftReaderException {
         int currentChar;
         quizContentHandler.onStartQuiz();
         while ((currentChar = reader.read()) != -1) {
@@ -49,6 +55,9 @@ public class GiftReader implements QuizReader {
 
     }
 
+    /**
+     * checkQuestionHasStarted
+     */
     private void checkQuestionHasStarted() {
         if (!questionHasStarted) {
             questionHasStarted = true;
@@ -56,6 +65,10 @@ public class GiftReader implements QuizReader {
         }
     }
 
+    /**
+     * endQuiz
+     * @throws GiftReaderQuestionWithInvalidFormatException an exception
+     */
     private void endQuiz() throws GiftReaderQuestionWithInvalidFormatException {
         if (!questionHasEnded && !answerFragmentHasEnded) {
             throw new GiftReaderQuestionWithInvalidFormatException();
@@ -68,6 +81,10 @@ public class GiftReader implements QuizReader {
 
     }
 
+    /**
+     * processColonCharacter
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processColonCharacter() throws GiftReaderNotEscapedCharacterException {
         if (escapeMode) {
             processAnyCharacter(':');
@@ -94,6 +111,10 @@ public class GiftReader implements QuizReader {
 
     }
 
+    /**
+     * processAntiSlashCharacter
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processAntiSlashCharacter() throws GiftReaderNotEscapedCharacterException {
         if (escapeMode) {
             processAnyCharacter('\\');
@@ -102,6 +123,10 @@ public class GiftReader implements QuizReader {
         escapeMode = true;
     }
 
+    /**
+     * processLeftBracketCharacter
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processLeftBracketCharacter() throws GiftReaderNotEscapedCharacterException {
         if (escapeMode) {
             processAnyCharacter('{');
@@ -117,6 +142,10 @@ public class GiftReader implements QuizReader {
 
     }
 
+    /**
+     * processRightBracketCharacter
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processRightBracketCharacter() throws GiftReaderNotEscapedCharacterException {
         if (escapeMode) {
             processAnyCharacter('}');
@@ -136,14 +165,27 @@ public class GiftReader implements QuizReader {
 
     }
 
+    /**
+     * processEqualCharacter
+     * @throws GiftReaderException an exception
+     */
     private void processEqualCharacter() throws GiftReaderException {
         processAnswerPrefix('=');
     }
 
+    /**
+     * processTildeCharacter
+     * @throws GiftReaderException an exception
+     */
     private void processTildeCharacter() throws GiftReaderException {
         processAnswerPrefix('~');
     }
 
+    /**
+     * processAnswerPrefix
+     * @param prefix a char
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processAnswerPrefix(char prefix) throws GiftReaderNotEscapedCharacterException {
         if (escapeMode) {
             processAnyCharacter(prefix);
@@ -167,6 +209,10 @@ public class GiftReader implements QuizReader {
         getQuizContentHandler().onStartAnswer(String.valueOf(prefix)); // it marks the beginning of a new one too
     }
 
+    /**
+     * processSharpCharacter
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processSharpCharacter() throws GiftReaderNotEscapedCharacterException {
         if (escapeMode) {
             processAnyCharacter('#');
@@ -179,7 +225,11 @@ public class GiftReader implements QuizReader {
         answerFeedbackHasStarted = true;
         getQuizContentHandler().onStartAnswerFeedBack(); // it marks the beginning of a new one too
     }
-
+    
+    /**
+     * processPercentCharacter
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processPercentCharacter() throws GiftReaderNotEscapedCharacterException {
         if (escapeMode) {
             processAnyCharacter('%');
@@ -190,16 +240,21 @@ public class GiftReader implements QuizReader {
         }
         flushAccumulator();
         if (answerCreditHasStarted) {
-            answerCreditHasStarted = false ;
+            answerCreditHasStarted = false;
             answerCreditHasEnded = true;
             getQuizContentHandler().onEndAnswerCredit();
         } else {
-            answerCreditHasStarted = true ;
+            answerCreditHasStarted = true;
             getQuizContentHandler().onStartAnswerCredit();
         }
 
     }
 
+    /**
+     * processAnyCharacter
+     * @param currentChar an Int
+     * @throws GiftReaderNotEscapedCharacterException an exception
+     */
     private void processAnyCharacter(int currentChar) throws GiftReaderNotEscapedCharacterException {
         if (accumulator == null) {
             accumulator = new StringBuffer();
@@ -214,6 +269,9 @@ public class GiftReader implements QuizReader {
         escapeMode = false;
     }
 
+    /**
+     * flushAccumulator
+     */
     private void flushAccumulator() {
         if (accumulator != null) {
             quizContentHandler.onString(accumulator.toString());
@@ -221,11 +279,19 @@ public class GiftReader implements QuizReader {
         }
     }
 
-    public QuizContentHandler getQuizContentHandler() {
+    /**
+     * getQuizContentHandler
+     * @return quiContentHandler a QuizContentHandler
+     */
+    public final QuizContentHandler getQuizContentHandler() {
         return quizContentHandler;
     }
 
-    public void setQuizContentHandler(QuizContentHandler quizContentHandler) {
+    /**
+     * setQuizContentHandler
+     * @param quizContentHandler a QuizContentHandler
+     */
+    public final void setQuizContentHandler(QuizContentHandler quizContentHandler) {
         this.quizContentHandler = quizContentHandler;
     }
 

@@ -20,7 +20,11 @@ package dcll.kowa.ProjetQuestions.impl.gift;
  * @author franck Silvestre
  */
 public class GiftUserResponseAnswerBlockListSizeIsNotValidInResponse extends GiftUserResponseException {
-    public GiftUserResponseAnswerBlockListSizeIsNotValidInResponse() {
+    
+	/**
+	 * Constructor
+	 */
+	public GiftUserResponseAnswerBlockListSizeIsNotValidInResponse() {
         super("Answer_block_list_size_is_not_valid_in_response");
     }
 }

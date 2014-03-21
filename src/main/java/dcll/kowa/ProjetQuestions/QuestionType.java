@@ -28,7 +28,11 @@ public enum QuestionType {
     FillInTheBlank(4);
 
     private int code;
-
+    
+    /**
+     * Constructor
+     * @param code question type
+     */
     QuestionType(int code) {
         this.code = code;
     }

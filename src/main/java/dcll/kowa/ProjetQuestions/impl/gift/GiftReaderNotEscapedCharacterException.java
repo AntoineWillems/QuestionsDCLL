@@ -16,13 +16,15 @@
 
 package dcll.kowa.ProjetQuestions.impl.gift;
 
-import dcll.kowa.ProjetQuestions.QuizReaderException;
 
 /**
  * @author franck Silvestre
  */
 public class GiftReaderNotEscapedCharacterException extends GiftReaderException {
-
+	
+	/**
+	 * Constructor
+	 */
     public GiftReaderNotEscapedCharacterException() {
         super("Not_escaped_character");
     }

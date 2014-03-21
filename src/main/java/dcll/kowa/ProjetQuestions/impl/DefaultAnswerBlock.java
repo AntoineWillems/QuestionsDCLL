@@ -34,7 +34,7 @@ public class DefaultAnswerBlock implements AnswerBlock {
      *
      * @return the answer list of the block
      */
-    public List<Answer> getAnswerList() {
+    public final List<Answer> getAnswerList() {
         return answerList;
     }
 
@@ -42,7 +42,7 @@ public class DefaultAnswerBlock implements AnswerBlock {
      * Add answer to the answer block
      * @param answer the answer to add
      */
-    public void addAnswer(Answer answer) {
+    public final void addAnswer(Answer answer) {
         answerList.add(answer);
     }
 }

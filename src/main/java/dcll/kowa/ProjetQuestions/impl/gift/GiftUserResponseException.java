@@ -21,8 +21,12 @@ import dcll.kowa.ProjetQuestions.UserResponseException;
 /**
  * @author franck Silvestre
  */
-public class GiftUserResponseException extends UserResponseException{
-
+public class GiftUserResponseException extends UserResponseException {
+	
+	/**
+	 * Constructor
+	 * @param message the exception description
+	 */
     public GiftUserResponseException(String message) {
         super(message);
     }
