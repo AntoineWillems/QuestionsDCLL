@@ -23,6 +23,10 @@ import dcll.kowa.ProjetQuestions.QuizReaderException;
  */
 public class GiftReaderException extends QuizReaderException {
 
+	/**
+	 * Constructor
+	 * @param message the exception description
+	 */
     public GiftReaderException(String message) {
         super(message);
     }

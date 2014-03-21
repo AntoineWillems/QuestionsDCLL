@@ -34,7 +34,7 @@ public class DefaultQuiz implements Quiz {
      * Add a question to the quiz
      * @param question the question to add
      */
-    public void addQuestion(Question question) {
+    public final void addQuestion(Question question) {
         questionList.add(question);
     }
 
@@ -43,7 +43,7 @@ public class DefaultQuiz implements Quiz {
      *
      * @return the question list
      */
-    public List<Question> getQuestionList() {
+    public final List<Question> getQuestionList() {
         return questionList;
     }
 }

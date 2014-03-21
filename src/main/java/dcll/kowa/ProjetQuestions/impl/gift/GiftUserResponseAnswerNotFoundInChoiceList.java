@@ -20,7 +20,11 @@ package dcll.kowa.ProjetQuestions.impl.gift;
  * @author franck Silvestre
  */
 public class GiftUserResponseAnswerNotFoundInChoiceList extends GiftUserResponseException {
-    public GiftUserResponseAnswerNotFoundInChoiceList() {
+    
+	/**
+	 * Constructor
+	 */
+	public GiftUserResponseAnswerNotFoundInChoiceList() {
         super("Answer_not_found_choice_list");
     }
 }

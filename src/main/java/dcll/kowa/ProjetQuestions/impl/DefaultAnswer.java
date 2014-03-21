@@ -29,7 +29,7 @@ public class DefaultAnswer implements Answer {
     private String feedback;
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -41,7 +41,7 @@ public class DefaultAnswer implements Answer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return identifier.hashCode();
     }
 
@@ -50,7 +50,7 @@ public class DefaultAnswer implements Answer {
      *
      * @return the text value of the answer
      */
-    public String getTextValue() {
+    public final String getTextValue() {
         return textValue;
     }
 
@@ -58,7 +58,7 @@ public class DefaultAnswer implements Answer {
      * Set te text value of the answer
      * @param textValue the new text value
      */
-    public void setTextValue(String textValue) {
+    public final void setTextValue(String textValue) {
         this.textValue = textValue;
     }
 
@@ -67,7 +67,7 @@ public class DefaultAnswer implements Answer {
      *
      * @return the percent credit
      */
-    public Float getPercentCredit() {
+    public final Float getPercentCredit() {
         return percentCredit;
     }
 
@@ -75,7 +75,7 @@ public class DefaultAnswer implements Answer {
      * Set the percent credit of the answer
      * @param percentCredit the percent credit
      */
-    public void setPercentCredit(Float percentCredit) {
+    public final void setPercentCredit(Float percentCredit) {
         this.percentCredit = percentCredit;
     }
 
@@ -84,7 +84,7 @@ public class DefaultAnswer implements Answer {
      *
      * @return the identifier
      */
-    public String getIdentifier() {
+    public final String getIdentifier() {
         return identifier;
     }
 
@@ -92,24 +92,24 @@ public class DefaultAnswer implements Answer {
      * Set the identifier
      * @param identifier  the new identifier
      */
-    public void setIdentifier(String identifier) {
+    public  final void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
 
     /**
      * Set the feedback
-     * @param feedback
+     * @param feedback a String
      */
-    public void setFeedback(String feedback) {
+    public final void setFeedback(String feedback) {
         this.feedback = feedback;
     }
 
     /**
      * Get the feedback to present to a student for this answer
      *
-     * @return
+     * @return feedback a String
      */
-    public String getFeedBack() {
+    public final String getFeedBack() {
         return feedback;
     }
 }
