@@ -24,8 +24,8 @@ import java.util.List;
 public interface Quiz {
 
     /**
-     * Get the question list of the quiz
-     * @return  the question list
-     */
+	* Get the question list of the quiz
+	* @return the question list
+	*/
     public List<Question> getQuestionList();
 }
