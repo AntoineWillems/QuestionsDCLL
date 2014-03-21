@@ -34,10 +34,10 @@ public enum QuestionType {
     }
 
     /**
-	* Get the code of que question type
-	*
-	* @return the code
-	*/
+* Get the code of que question type
+*
+* @return the code
+*/
     public int getCode() {
         return code;
     }
