@@ -24,8 +24,8 @@ import java.util.List;
 public interface AnswerBlock extends QuestionBlock {
 
     /**
-     * Get the answer list that compose the answer block
-     * @return the answer list of the block
-     */
+	* Get the answer list that compose the answer block
+	* @return the answer list of the block
+	*/
     public List<Answer> getAnswerList();
 }
