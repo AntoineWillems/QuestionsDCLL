@@ -85,4 +85,8 @@ public interface QuizContentHandler {
 	*/
     public void onEndAnswerFeedBack();
 
+	public void chooseTypeQuestion(String string);
+
+	public void setEndQuestion(boolean b);
+
 }

@@ -192,4 +192,16 @@ public class GiftQuizContentHandler implements QuizContentHandler {
     private boolean answerCreditIsBeenBuilt;
     private boolean feedbackIsBeenBuilt;
     private int answerCounter ;
+	@Override
+	public void chooseTypeQuestion(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setEndQuestion(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

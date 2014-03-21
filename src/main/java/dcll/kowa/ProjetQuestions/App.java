@@ -6,6 +6,7 @@ import org.apache.log4j.BasicConfigurator;
 
 import dcll.kowa.ProjetQuestions.impl.gift.GiftQuestionService;
 import dcll.kowa.ProjetQuestions.impl.gift.GiftReaderException;
+import dcll.kowa.ProjetQuestions.impl.gift.WikiQuestionService;
 
 /**
  * Hello world!
@@ -18,17 +19,29 @@ public class App
     	BasicConfigurator.configure();
         System.out.println( "Hello World!" );
 
-        GiftQuestionService gqs = new GiftQuestionService();
-       Question q =  gqs.getQuestionFromGiftText("{ Une application possible est la création d'une liste de questions VRAI/FAUX : | type=\"()\" }"
-       				+ "| VRAI | FAUX "
-       				+ "-+ Cette extension "
-       				+ " est pleine de bugs.");
-       System.out.println(q.getQuestionType());
+        WikiQuestionService wqs = new WikiQuestionService();
+       Question q =  wqs.getQuestionFromGiftText("{ Une application possible est la création d'une liste de questions |type=\"[]\"}" +
+       		" - Vrai" +
+       		" + False" +
+       		" + Test");
+       System.out.println("Type de la question: " + q.getQuestionType());
+       for(int i=0;i<q.getTextBlockList().size();i++){
+    	   TextBlock t = q.getTextBlockList().get(i);
+    	   System.out.println("Question: " + t.getText());
+       }
+       
+      for(int j=0;j< q.getAnswerBlockList().size();j++){
+    	  AnswerBlock ab = q.getAnswerBlockList().get(j);
+    	  for(int k=0;k<ab.getAnswerList().size();k++){
+    		  Answer a = ab.getAnswerList().get(k);
+    		  System.out.println("Reponse n°" +a.getIdentifier() + " : " + a.getTextValue());
+    	  }
+      }
        		//System.out.println(q.getQuestionType());
        		
        		
     	
-    	try
+    	/*try
     	{
     		GiftQuestionService questionService = new GiftQuestionService();
         
@@ -44,7 +57,7 @@ public class App
     	catch(Exception e)
     	{
     		System.out.println(e.toString());
-    	}
+    	}*/
 
     }
 }

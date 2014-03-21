@@ -125,7 +125,8 @@ public class GiftReader implements QuizReader {
         if (!answerFragmentHasStarted) {
             throw  new GiftReaderNotEscapedCharacterException();
         }
-        flushAccumulator();
+        accumulator=null;
+        //flushAccumulator();
         answerFragmentHasEnded = true;
         answerFragmentHasStarted = false;
         if (answerHasStarted) {
