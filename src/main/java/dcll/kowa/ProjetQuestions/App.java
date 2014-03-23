@@ -20,10 +20,10 @@ public class App
         System.out.println( "Hello World!" );
 
         WikiQuestionService wqs = new WikiQuestionService();
-       Question q =  wqs.getQuestionFromGiftText("{ Une application possible est la création d'une liste de questions |type=\"[]\"}" +
-       		" - Vrai" +
-       		" + False" +
-       		" + Test");
+       Question q =  wqs.getQuestionFromGiftText("{ Une + application ()possible est la[] création d'une liste de questions |type=\"[]\"}" +
+       		" - [Vrai)" +
+       		" + False}" +
+       		" + {Test");
        System.out.println("Type de la question: " + q.getQuestionType());
        for(int i=0;i<q.getTextBlockList().size();i++){
     	   TextBlock t = q.getTextBlockList().get(i);

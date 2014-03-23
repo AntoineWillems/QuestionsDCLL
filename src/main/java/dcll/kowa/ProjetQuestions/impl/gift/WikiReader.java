@@ -32,11 +32,13 @@ public class WikiReader implements QuizReader {
             } else if (currentChar == '(') {
             	processParentheseGCaractere();
             } else if (currentChar == ')') {
-            	processParentheseDCaractere();
+            	//processParentheseDCaractere();
+            	processAnyCharacter(currentChar);
             } else if (currentChar == '[') {
             	processCrochetGCaractere();
             } else if (currentChar == ']') {
-            	processCrochetDCaractere();
+            	//processCrochetDCaractere();
+            	processAnyCharacter(currentChar);
             } else {
                 processAnyCharacter(currentChar);
             }
@@ -75,11 +77,21 @@ public class WikiReader implements QuizReader {
         }
 
     }
-    private void processAccoladeGCaractere(){
-    	
+    private void processAccoladeGCaractere() throws GiftReaderNotEscapedCharacterException{
+    	if (answerMode) {
+            processAnyCharacter('{');
+            return;
+        }
+    	questionMode = true;
     }
     
     private void processAccoladeDCaractere() throws GiftReaderNotEscapedCharacterException{
+    	if (answerMode) {
+            processAnyCharacter('}');
+            return;
+        }
+    	questionMode = false;
+    	answerMode = true;
     	accumulator=null;
     	answerFragmentHasStarted = true;
     	answerFragmentHasEnded = false;
@@ -92,14 +104,26 @@ public class WikiReader implements QuizReader {
     }
     
     private void processPlusCharacter() throws GiftReaderException {
+    	if (questionMode) {
+            processAnyCharacter('+');
+            return;
+        }
         processAnswerPrefix('+');
     }
 
     private void processMoinsCharacter() throws GiftReaderException {
+    	if (questionMode) {
+            processAnyCharacter('-');
+            return;
+        }
         processAnswerPrefix('-');
     }
     
-    private void processParentheseGCaractere(){
+    private void processParentheseGCaractere() throws GiftReaderNotEscapedCharacterException{
+    	if (answerMode || questionMode) {
+            processAnyCharacter('(');
+            return;
+        }
     	quizContentHandler.chooseTypeQuestion("(");
     }
     
@@ -107,7 +131,11 @@ public class WikiReader implements QuizReader {
     	
     }
     
-    private void processCrochetGCaractere(){
+    private void processCrochetGCaractere() throws GiftReaderNotEscapedCharacterException{
+    	if (answerMode || questionMode) {
+            processAnyCharacter('[');
+            return;
+        }
     	quizContentHandler.chooseTypeQuestion("[");
     }
     
@@ -167,7 +195,9 @@ public class WikiReader implements QuizReader {
     private StringBuffer accumulator;
     private int controlCharAccumulator = -1;
     private boolean escapeMode;
-
+    private boolean answerMode;
+    private boolean questionMode;
+    
     private boolean questionHasStarted;
     private boolean questionHasEnded;
     private boolean answerFragmentHasStarted;
