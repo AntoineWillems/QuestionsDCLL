@@ -99,6 +99,12 @@ public class WikiReader implements QuizReader {
     }
     
     private void processPipeCaractere(){
+    	if (questionMode) {
+            /*
+             * Alors feedback
+             */
+            return;
+        }
     	quizContentHandler.setEndQuestion(true);
     	flushAccumulator();
     }
