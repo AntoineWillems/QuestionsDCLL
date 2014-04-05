@@ -1,8 +1,16 @@
 package dcll.kowa.ProjetQuestions.impl.wikiversity;
 
-public class WikiversityReaderIllegalBracketCharInQuestionTextException extends
-WikiversityReaderException {
+/**
+ * 
+ * @author wallart
+ *
+ */
+public class WikiversityReaderIllegalBracketCharInQuestionTextException extends WikiversityReaderException {
 
+	/**
+	 * WikiversityReaderIllegalBracketCharInQuestionTextException
+	 * @param message the error
+	 */
 	public WikiversityReaderIllegalBracketCharInQuestionTextException(
 			String message) {
 		super(message);

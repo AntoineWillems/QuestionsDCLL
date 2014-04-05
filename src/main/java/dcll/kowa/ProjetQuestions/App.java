@@ -17,7 +17,7 @@ public final class App {
 	
 	/**
 	 * Point d'entré de l'application
-	 * @param args args
+	 * @param args apps arguments
 	 * @throws WikiversityReaderException WikiversityReaderException
 	 * @throws IOException IOExceptions
 	 */
