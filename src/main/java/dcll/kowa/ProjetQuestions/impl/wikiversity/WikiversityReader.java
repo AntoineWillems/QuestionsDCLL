@@ -192,8 +192,7 @@ public class WikiversityReader implements QuizReader {
     	if (textHasStarted) {
     		flushAccumulator();
     		hasSpecifiedType = true;
-    	}      
-        if (controlCharAccumulator == '|') {
+    	} else if (controlCharAccumulator == '|') {
         	flushAccumulator();
             answerFeedbackHasStarted = true;
             getQuizContentHandler().onStartAnswerFeedBack(); // it marks the beginning of a new one too
@@ -212,7 +211,9 @@ public class WikiversityReader implements QuizReader {
             accumulator = new StringBuffer();
         }
         accumulator.append((char) currentChar);
-        if (answerHasStarted && (nextChar == -1)) { //Vérifier si c'est la dernière réponse
+        if ((answerHasStarted) && (nextChar == '|')) {
+        	controlCharAccumulator = -1;
+        } else if (answerHasStarted && (nextChar == -1)) { //Vérifier si c'est la dernière réponse
         	flushAccumulator();
             getQuizContentHandler().onEndAnswer();
             getQuizContentHandler().onEndAnswerBlock();

@@ -43,14 +43,6 @@ public class WikiversityReaderTest extends TestCase{
     
 	protected void setUp() throws Exception {
 		super.setUp();
-		reader = new StringReader("{Séléctionnez un des langages suivants: "
-    				+ "| type=\"()\"}"
-    				+ "+ Clojure."
-    				+ "||FeedBack de Clojure"
-    				+ "- Java."
-    				+ "||FeedBack de Java"
-    				+ "+ Groovy."
-    				+ "- Scala.");
 		 
 		reader = new StringReader("{Séléctionnez un des langages suivants: "
 				+ "| type=\"()\"}"
