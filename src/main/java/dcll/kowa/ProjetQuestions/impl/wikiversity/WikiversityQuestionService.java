@@ -12,10 +12,12 @@ import dcll.kowa.ProjetQuestions.impl.DefaultAnswer;
 import dcll.kowa.ProjetQuestions.impl.DefaultAnswerBlock;
 import dcll.kowa.ProjetQuestions.impl.DefaultUserAnswerBlock;
 import dcll.kowa.ProjetQuestions.impl.DefaultUserResponse;
-import dcll.kowa.ProjetQuestions.impl.gift.GiftReaderException;
-import dcll.kowa.ProjetQuestions.impl.gift.GiftUserResponseAnswerBlockListSizeIsNotValidInResponse;
-import dcll.kowa.ProjetQuestions.impl.gift.GiftUserResponseAnswerNotFoundInChoiceList;
 
+/**
+ * WikiversityQuestionService
+ * @author thegame
+ *
+ */
 public class WikiversityQuestionService {
 	public static final String NO_RESPONSE = "_NO_RESPONSE_";
 
@@ -24,10 +26,10 @@ public class WikiversityQuestionService {
      *
      * @param giftText the gift text
      * @return the result question
-     * @throws WikiversityReaderException 
-     * @throws WikiversityReaderNotEscapedCharacterException 
+     * @throws WikiversityReaderException WikiversityReaderException
+     * @throws IOException IOException
      */
-    public Question getQuestionFromGiftText(String giftText) throws IOException, GiftReaderException, WikiversityReaderException {
+    public final Question getQuestionFromGiftText(String giftText) throws IOException, WikiversityReaderException {
         Quiz quiz = getQuizFromGiftText(giftText);
         return quiz.getQuestionList().get(0);
     }
@@ -37,10 +39,10 @@ public class WikiversityQuestionService {
      *
      * @param giftText the gift text
      * @return the result quiz
-     * @throws WikiversityReaderException 
-     * @throws WikiversityReaderNotEscapedCharacterException 
+     * @throws WikiversityReaderException  WikiversityReaderException
+     * @throws IOException IOException
      */
-    public Quiz getQuizFromGiftText(String giftText) throws IOException, WikiversityReaderException {
+    public final Quiz getQuizFromGiftText(String giftText) throws IOException, WikiversityReaderException {
         WikiversityQuizContentHandler handler = new WikiversityQuizContentHandler();
         WikiversityReader quizReader = new WikiversityReader();
         quizReader.setQuizContentHandler(handler);
@@ -57,10 +59,12 @@ public class WikiversityQuestionService {
      * @param question            the question
      * @param answerBlockTextList the list of answer text block  of the response (each answer is represented by its identifier)
      * @return the created user response
+     * @throws WikiversityUserResponseAnswerBlockListSizeIsNotValidInResponse Exception
+     * @throws WikiversityUserResponseAnswerNotFoundInChoiceList Exception
      */
-    public UserResponse createUserResponseForQuestionAndAnswerBlockList(String userId, Question question, List<List<String>> answerBlockTextList) throws GiftUserResponseAnswerNotFoundInChoiceList, GiftUserResponseAnswerBlockListSizeIsNotValidInResponse {
+    public final UserResponse createUserResponseForQuestionAndAnswerBlockList(String userId, Question question, List<List<String>> answerBlockTextList) throws WikiversityUserResponseAnswerBlockListSizeIsNotValidInResponse, WikiversityUserResponseAnswerNotFoundInChoiceList {
         if (question.getAnswerBlockList().size() != answerBlockTextList.size()) {
-            throw new GiftUserResponseAnswerBlockListSizeIsNotValidInResponse();
+            throw new WikiversityUserResponseAnswerBlockListSizeIsNotValidInResponse("");
         }
         DefaultUserResponse userResponse = new DefaultUserResponse();
         userResponse.setUserIdentifier(userId);
@@ -85,7 +89,7 @@ public class WikiversityQuestionService {
                 }
             }
             if (!answerHasBeenFound) {
-                throw new GiftUserResponseAnswerNotFoundInChoiceList();
+                throw new WikiversityUserResponseAnswerNotFoundInChoiceList("");
             }
         }
 
@@ -97,7 +101,7 @@ public class WikiversityQuestionService {
     /**
      * @return the no response answer
      */
-    public DefaultAnswer getNoResponseAnswer() {
+    public final DefaultAnswer getNoResponseAnswer() {
         if (noResponseAnswer == null) {
             noResponseAnswer = new DefaultAnswer();
             noResponseAnswer.setPercentCredit(0f);

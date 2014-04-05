@@ -1,47 +1,41 @@
 package dcll.kowa.ProjetQuestions;
 
 import java.io.IOException;
-
 import org.apache.log4j.BasicConfigurator;
-
-import dcll.kowa.ProjetQuestions.impl.gift.GiftQuestionService;
-import dcll.kowa.ProjetQuestions.impl.gift.GiftReaderException;
 import dcll.kowa.ProjetQuestions.impl.wikiversity.WikiversityQuestionService;
-
+import dcll.kowa.ProjetQuestions.impl.wikiversity.WikiversityReaderException;
 /**
- * Hello world!
+ * Point d'entré de l'application
+ * @author thegame
  *
  */
-public class App 
-{
-    public static void main( String[] args ) throws GiftReaderException, IOException
+public final class App {
+	/**
+	 * Constructeur privé qui empeche l'instanciation de la classe
+	 */
+	private App() { }
+	
+	/**
+	 * Point d'entré de l'application
+	 * @param args args
+	 * @throws WikiversityReaderException WikiversityReaderException
+	 * @throws IOException IOExceptions
+	 */
+    public static void main(String[] args) throws WikiversityReaderException, IOException
     {
     	BasicConfigurator.configure();
     	
-    	try
-    	{
+    	try {
     		WikiversityQuestionService questionService = new WikiversityQuestionService();
         
-    		String maQuestion = "{Séléctionnez un des \n le bon truc"
-    				+ "| type=\"()\"}"
-    				+ "+ Clojure."
-    				+ "||FeedBack de Clojure"
-    				+ "- Java."
-    				+ "||FeedBack de Java"
-    				+ "+ Groovy."
+    		String maQuestion = "{Séléctionnez un des \n le bon truc" 
+    				+ "| type=\"()\"}" 
+    				+ "+ Clojure." 
+    				+ "||FeedBack de Clojure" 
+    				+ "- Java." 
+    				+ "||FeedBack de Java" 
+    				+ "+ Groovy." 
     				+ "- Scala. ";
-    		String giftSimpleQuestion = "::Titre de la question"+
-":: Question {"+
-"=Bonne réponse"+
-"~Mauvaise réponse 1"+
-"#Rétroaction pour la mauvaise réponse 1"+
-"~Mauvaise réponse 2"+
-"#Rétroaction pour la mauvaise réponse 2"+
-"~Mauvaise réponse 3"+
-"#Rétroaction pour la mauvaise réponse 3"+
-"~Mauvaise réponse 4"+
-"#Rétroaction pour la mauvaise réponse 4"+
-"}";
     		
     		Question parsedQuestion = questionService.getQuestionFromGiftText(maQuestion);
     		int nbAnswerBlockList = parsedQuestion.getAnswerBlockList().size();
@@ -53,28 +47,23 @@ public class App
     		System.out.println(parsedQuestion.getTitle());
     		System.out.println("\n----------------\n\n");
     		System.out.println("Answer List: \n---------\n");
-    		for (int i = 0 ; i < nbAnswerBlockList; i++)
-    		{
+    		for (int i = 0; i < nbAnswerBlockList; i++) {
     			int nbAnswerList = parsedQuestion.getAnswerBlockList().get(i).getAnswerList().size();
-    			for (int j = 0; j < nbAnswerList; j++)
-    			{
-    				System.out.println("Reponse: "+parsedQuestion.getAnswerBlockList().get(i).getAnswerList().get(j).getTextValue());
-    				System.out.println("Son FeedBack: "+parsedQuestion.getAnswerBlockList().get(i).getAnswerList().get(j).getFeedBack());
-    				System.out.println("Son ID: "+parsedQuestion.getAnswerBlockList().get(i).getAnswerList().get(j).getIdentifier());
+    			for (int j = 0; j < nbAnswerList; j++) {
+    				System.out.println("Reponse: " + parsedQuestion.getAnswerBlockList().get(i).getAnswerList().get(j).getTextValue());
+    				System.out.println("Son FeedBack: " + parsedQuestion.getAnswerBlockList().get(i).getAnswerList().get(j).getFeedBack());
+    				System.out.println("Son ID: " + parsedQuestion.getAnswerBlockList().get(i).getAnswerList().get(j).getIdentifier());
     			}
     		}
     		
     		System.out.println("\n\nText List: \n---------------\n");
-    		for (int i = 0; i < nbTextBlockList-1; i++)
-    		{
-    			System.out.println("Text N°"+i+":"+parsedQuestion.getTextBlockList().get(i).getText());
+    		for (int i = 0; i < nbTextBlockList - 1; i++) {
+    			System.out.println("Text N°" + i + ":" + parsedQuestion.getTextBlockList().get(i).getText());
     		}
     		
-    		System.out.println("\n--------------\nType: "+parsedQuestion.getQuestionType().toString());
+    		System.out.println("\n--------------\nType: " + parsedQuestion.getQuestionType().toString());
     		
-    	}
-    	catch(Exception e)
-    	{
+    	} catch (Exception e) {
     		System.out.println(e.toString());
     	}
     }

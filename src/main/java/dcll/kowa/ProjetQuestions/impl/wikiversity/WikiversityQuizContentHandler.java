@@ -11,8 +11,16 @@ import dcll.kowa.ProjetQuestions.impl.DefaultAnswerBlock;
 import dcll.kowa.ProjetQuestions.impl.DefaultQuestion;
 import dcll.kowa.ProjetQuestions.impl.DefaultQuiz;
 
-public class WikiversityQuizContentHandler implements QuizContentHandler{
+/**
+ * WikiversityQuizContentHandler
+ * @author thegame
+ *
+ */
+public class WikiversityQuizContentHandler implements QuizContentHandler {
 
+	private static final float CORRECT_ANSWER_CREDIT = 100f;
+	private static final float BAD_ANSWER_CREDIT = 0f;
+	private static final float ERROR_ANSWER_CREDIT = -1f;
 	/**
      * Get the quiz
      *
@@ -27,9 +35,13 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
     private StringBuffer currentTitle;
     private boolean answerCreditIsBeenBuilt;
     private boolean feedbackIsBeenBuilt;
-    private int answerCounter ;
+    private int answerCounter;
     
-    public DefaultQuiz getQuiz() {
+    /**
+     * Retourne un quiz par Default
+     * @return un qui par défaut
+     */
+    public final DefaultQuiz getQuiz() {
         return quiz;
     }
 
@@ -37,20 +49,20 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
     /**
      * Receive notification of the beginning of a quiz
      */
-    public void onStartQuiz() {
+    public final void onStartQuiz() {
         quiz = new DefaultQuiz();
     }
 
     /**
      * Receive notification of the end of a quiz
      */
-    public void onEndQuiz() {
+    public final void onEndQuiz() {
     }
 
     /**
      * Receive notification of the beginning of a question
      */
-    public void onStartQuestion() {
+    public final void onStartQuestion() {
         currentQuestion = new DefaultQuestion();
         currentQuestion.setQuestionType(QuestionType.MultipleChoice);
     }
@@ -58,7 +70,7 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
     /**
      * Receive notification of the end of a question
      */
-    public void onEndQuestion() {
+    public final void onEndQuestion() {
         postProcess(currentQuestion);
         quiz.addQuestion(currentQuestion);
         currentQuestion = null;
@@ -68,14 +80,14 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
     /**
      * Receive notification of the beginning of a title
      */
-    public void onStartTitle() {
+    public final void onStartTitle() {
         currentTitle = new StringBuffer();
     }
 
     /**
      * Receive notification of the end of a title
      */
-    public void onEndTitle() {
+    public final void onEndTitle() {
         currentQuestion.setTitle(currentTitle.toString());
         currentTitle = null;
     }
@@ -83,7 +95,7 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
     /**
      * Receive notification of the beginning of an answer fragment
      */
-    public void onStartAnswerBlock() {
+    public final void onStartAnswerBlock() {
         currentAnswerBlock = new DefaultAnswerBlock();
         answerCounter = 0;
     }
@@ -91,63 +103,61 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
     /**
      * Receive notification of the end of an answer fragment
      */
-    public void onEndAnswerBlock() {
+    public final void onEndAnswerBlock() {
         currentQuestion.addAnswerBlock(currentAnswerBlock);
         currentAnswerBlock = null;
     }
 
     /**
      * Receive notification of the beginning of an answer
+     * @param prefix + ou -
      */
-    public void onStartAnswer(String prefix) {
+    public final void onStartAnswer(String prefix) {
         currentAnswer = new DefaultAnswer();
         currentAnswer.setIdentifier(String.valueOf(answerCounter++));
         if ("+".equals(prefix)) {
-            currentAnswer.setPercentCredit(100f);
-        } else if ("-".equals(prefix)){
-            currentAnswer.setPercentCredit(0f);
-        }
-        else
-        {
-        	//ERREUR
-        	currentAnswer.setPercentCredit(-1f);
+            currentAnswer.setPercentCredit(CORRECT_ANSWER_CREDIT);
+        } else if ("-".equals(prefix)) {
+            currentAnswer.setPercentCredit(BAD_ANSWER_CREDIT);
+        } else {
+        	currentAnswer.setPercentCredit(ERROR_ANSWER_CREDIT);
         }
     }
 
     /**
      * Receive notification of the end of an answer
      */
-    public void onEndAnswer() {
+    public final void onEndAnswer() {
         currentAnswerBlock.addAnswer(currentAnswer);
-        logger.debug("Inserting Answer => "+currentAnswer.getTextValue());
+        logger.debug("Inserting Answer => " + currentAnswer.getTextValue());
         currentAnswer = null;
     }
 
     /**
      * Notification of the beginning of a credit specification
      */
-    public void onStartAnswerCredit() {
+    public final void onStartAnswerCredit() {
         answerCreditIsBeenBuilt = true;
     }
 
     /**
      * Notification of the end of a credit specification
      */
-    public void onEndAnswerCredit() {
+    public final void onEndAnswerCredit() {
         answerCreditIsBeenBuilt = false;
     }
 
     /**
      * Receive notification of the beginning feedback
      */
-    public void onStartAnswerFeedBack() {
+    public final void onStartAnswerFeedBack() {
         feedbackIsBeenBuilt = true;
     }
 
     /**
      * Receive notification of the end of a feedback
      */
-    public void onEndAnswerFeedBack() {
+    public final void onEndAnswerFeedBack() {
         feedbackIsBeenBuilt = false;
     }
 
@@ -156,7 +166,7 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
      *
      * @param str the received string
      */
-    public void onString(final String str) {
+    public final void onString(final String str) {
         String trimedStr = str.trim();
         if (currentTitle != null) {
             currentTitle.append(trimedStr);
@@ -169,12 +179,9 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
             currentAnswer.setTextValue(trimedStr);
         } else if (currentQuestion != null && currentAnswerBlock == null) {
         	
-        	if(str.endsWith("type=\"()\""))
-        	{
+        	if (str.endsWith("type=\"()\"")) {
         		currentQuestion.setQuestionType(QuestionType.ExclusiveChoice);
-        	}
-        	else
-        	{
+        	} else {
 	            logger.debug("Text fragment => " + str);
 	            currentQuestion.addTextBlock(new TextBlock() {
 	                public String getText() {
@@ -185,8 +192,11 @@ public class WikiversityQuizContentHandler implements QuizContentHandler{
         }
     }
 
-
-    private void postProcess(Question question) {
+    /**
+     * log qui affiche: Post processing of the current question
+     * @param question Current question
+     */
+    private final void postProcess(Question question) {
        logger.debug("Post processing of the current question");
     }
 

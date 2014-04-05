@@ -7,33 +7,37 @@ import org.apache.log4j.Logger;
 
 import dcll.kowa.ProjetQuestions.QuizContentHandler;
 import dcll.kowa.ProjetQuestions.QuizReader;
-import dcll.kowa.ProjetQuestions.impl.gift.GiftReaderException;
-import dcll.kowa.ProjetQuestions.impl.gift.GiftReaderNotEscapedCharacterException;
-import dcll.kowa.ProjetQuestions.impl.gift.GiftReaderQuestionWithInvalidFormatException;
 
-public class WikiversityReader implements QuizReader{
+/**
+ * WikiversityReader
+ * @author thegame
+ *
+ */
+public class WikiversityReader implements QuizReader {
 	private static Logger logger = Logger.getLogger(WikiversityReader.class);
 	
 
-    private QuizContentHandler quizContentHandler; //
-    private StringBuffer accumulator; //
-    private int controlCharAccumulator = -1; //
-    //private boolean readingType; //
-    
+    private QuizContentHandler quizContentHandler;
+    private StringBuffer accumulator;
+    private int controlCharAccumulator = -1;    
     private int nextChar;
-    private boolean questionHasStarted; //
-    private boolean questionHasEnded; //
-    
-    private boolean textHasStarted; ////
+    private boolean questionHasStarted;
+    private boolean questionHasEnded;
+    private boolean textHasStarted;
     private boolean hasSpecifiedType = false;
-    private boolean answersCanStart; ////
-    
-    private boolean answerFragmentHasStarted;//
-    private boolean answerFragmentHasEnded;//
-    private boolean answerHasStarted;//
+    private boolean answersCanStart;
+    private boolean answerFragmentHasStarted;
+    private boolean answerFragmentHasEnded;
+    private boolean answerHasStarted;
     private boolean answerFeedbackHasStarted;
     
-    public void parse(Reader reader) throws IOException, WikiversityReaderException {
+    /**
+     * Lance le parsing d'un text pour en extraire le graphe d'objets
+     * @param reader la chaine de caractères à parser
+     * @throws IOException IOException
+     * @throws WikiversityReaderException WikiversityReaderException
+     */
+    public final void parse(Reader reader) throws IOException, WikiversityReaderException {
         int currentChar;
         quizContentHandler.onStartQuiz();
         
@@ -52,7 +56,7 @@ public class WikiversityReader implements QuizReader{
                 processMinusCharacter();
             } else if (currentChar == '|') {
                 processBarMonospaceCharacter();
-            } else{
+            } else {
                 processAnyCharacter(currentChar);
             }
             logger.debug("Current char  => " + (char) currentChar);
@@ -68,16 +72,22 @@ public class WikiversityReader implements QuizReader{
 
     }
 
-
+    /**
+     * Marque le commencement d'une question
+     */
 	private void checkQuestionHasStarted() {
         if (!questionHasStarted) {
             questionHasStarted = true;
             quizContentHandler.onStartQuestion();
         }
     }
-
+	
+	/**
+	 * Termine la question
+	 * @throws WikiversityReaderQuestionWithInvalidFormatException WikiversityException
+	 */
     private void endQuiz() throws WikiversityReaderQuestionWithInvalidFormatException {
-    	if (!answerFragmentHasEnded){
+    	if (!answerFragmentHasEnded) {
             throw new WikiversityReaderQuestionWithInvalidFormatException(null);
         }
     	if (!questionHasEnded) {
@@ -91,7 +101,11 @@ public class WikiversityReader implements QuizReader{
         }
 
     }
-
+    
+    /**
+     * Traiter le caractère '{' qui représente le début du texte de la question
+     * @throws WikiversityReaderIllegalBracketCharInQuestionTextException WikiversityReaderException
+     */
     private void processLeftBracketCharacter() throws WikiversityReaderIllegalBracketCharInQuestionTextException {
         
         if (textHasStarted) {
@@ -101,14 +115,19 @@ public class WikiversityReader implements QuizReader{
         textHasStarted = true;
 
     }
-
+    
+    /**
+     * Traiter le caractère '}' qui représente la fin du texte de la question
+     * @throws WikiversityReaderIllegalBracketCharBeforeQuestionStartsException WikiversityReaderException
+     * @throws WikiversityReaderWrongTypeDefinition WikiversityReaderException
+     */
     private void processRightBracketCharacter() throws WikiversityReaderIllegalBracketCharBeforeQuestionStartsException, WikiversityReaderWrongTypeDefinition {
         
         if (!textHasStarted) {
             throw  new WikiversityReaderIllegalBracketCharBeforeQuestionStartsException("} ne peut être inséré que pour indiquer la fin du texte de la question");
         }
-        logger.debug("Result: "+accumulator.toString()+" | "+"type=\"()\""+accumulator.toString().endsWith("type=\"()\""));
-        if(hasSpecifiedType && !((accumulator.toString().endsWith("type=\"()\"") || (accumulator.toString().endsWith("type=\"[]\"")))))
+        logger.debug("Result: " + accumulator.toString() + " | " + "type=\"()\"" + accumulator.toString().endsWith("type=\"()\""));
+        if (hasSpecifiedType && !((accumulator.toString().endsWith("type=\"()\"") || (accumulator.toString().endsWith("type=\"[]\"")))))
         {
         	throw new WikiversityReaderWrongTypeDefinition();
         }
@@ -117,22 +136,34 @@ public class WikiversityReader implements QuizReader{
         answersCanStart = true; // les réponses peuvent commencer après ça
     }
 
+    /**
+     * Traiter le caractère '+' qui représente le début d'une nouvelle réponse
+     * @throws WikiversityReaderCannotStartAnswersException WikiversityException
+     */
     private void processPlusCharacter() throws WikiversityReaderCannotStartAnswersException {
         processAnswerPrefix('+');
     }
-
+    
+    /**
+     * Traiter le caractère '-' qui représente le début d'une nouvelle réponse
+     * @throws WikiversityReaderCannotStartAnswersException WikiversityException
+     */
     private void processMinusCharacter() throws WikiversityReaderCannotStartAnswersException {
         processAnswerPrefix('-');
     }
 
+    /**
+     * Traite le prefixe d'une reponse, lance le début du parsing d'une reponse
+     * @param prefix + ou -
+     * @throws WikiversityReaderCannotStartAnswersException WikiversityException
+     */
     private void processAnswerPrefix(char prefix) throws WikiversityReaderCannotStartAnswersException {
         
     	//Si le text n'a pas fini on ne peux pas donner de reponses
         if (!answersCanStart) {
             throw new WikiversityReaderCannotStartAnswersException("Il faut d'abord décrire la question entre { et } avant d'entrer les réponses");
         }
-        if(!answerFragmentHasStarted)
-        {
+        if (!answerFragmentHasStarted) {
         	answerFragmentHasStarted = true;
         	getQuizContentHandler().onStartAnswerBlock();
         }
@@ -148,34 +179,35 @@ public class WikiversityReader implements QuizReader{
         }
         getQuizContentHandler().onStartAnswer(String.valueOf(prefix)); // it marks the beginning of a new one too
     }
-
+    
+    /**
+     * Traite le caractère '|', principalement utilisé pour le feedBack d'une réponse.
+     * @throws WikiversityReaderIllegalVerticalBarPositionException WikiversityException
+     */
     private void processBarMonospaceCharacter() throws WikiversityReaderIllegalVerticalBarPositionException {
     	
     	if ((!answerHasStarted && !textHasStarted) || answerFeedbackHasStarted) {
             throw new WikiversityReaderIllegalVerticalBarPositionException("'|' ne peut être inséré qu'après une réponse sous cette séquence: || pour indiquer un feedback");
         }
-    	
-    	if(textHasStarted)
-    	{
+    	if (textHasStarted) {
     		flushAccumulator();
     		hasSpecifiedType = true;
-    	}
-                
-        if (controlCharAccumulator == '|')
-        {
+    	}      
+        if (controlCharAccumulator == '|') {
         	flushAccumulator();
             answerFeedbackHasStarted = true;
             getQuizContentHandler().onStartAnswerFeedBack(); // it marks the beginning of a new one too
-        }
-        
-        else
-        {
+        } else { 
         	controlCharAccumulator = '|';
         }
         
     }
 
-    private void processAnyCharacter(int currentChar){
+    /**
+     * Traite n'importe quel caractère, en le concaténant avec le buffer pour former les unités lexicales
+     * @param currentChar Caractère à traiter
+     */
+    private void processAnyCharacter(int currentChar) {
         if (accumulator == null) {
             accumulator = new StringBuffer();
         }
@@ -195,6 +227,10 @@ public class WikiversityReader implements QuizReader{
         }
     }
 
+    /**
+     * Envoi l'unité lexicale se trouvant dans le buffer vers le contentHandler qui se chargera de créer l'objet<br>
+     * correspondant
+     */
     private void flushAccumulator() {
         if (accumulator != null) {
             quizContentHandler.onString(accumulator.toString());
@@ -202,11 +238,19 @@ public class WikiversityReader implements QuizReader{
         }
     }
 
-    public QuizContentHandler getQuizContentHandler() {
+    /**
+     * Retourne le quizContentHandler
+     * @return quizContentHandler
+     */
+    public final QuizContentHandler getQuizContentHandler() {
         return quizContentHandler;
     }
 
-    public void setQuizContentHandler(QuizContentHandler quizContentHandler) {
+    /**
+     * Modifie le quizContentHandler 
+     * @param quizContentHandler nouveau quizContentHandler
+     */
+    public final void setQuizContentHandler(QuizContentHandler quizContentHandler) {
         this.quizContentHandler = quizContentHandler;
     }
 
