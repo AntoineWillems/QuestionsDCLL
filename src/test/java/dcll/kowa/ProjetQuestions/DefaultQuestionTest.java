@@ -71,13 +71,21 @@ public class DefaultQuestionTest extends TestCase {
 	@Test
 	public void testAddAnswerBlock() {
 		dq.addAnswerBlock(fragment);
-		assertEquals(fragment,dq.getBlockList().get(0));
-		assertEquals(fragment,dq.getAnswerBlockList().get(0));
+		assertEquals(true, (this.dq.getBlockList().size() > 0));
+		assertEquals(true, (this.dq.getAnswerBlockList().size() > 0));
 	}
 
 	@Test
 	public void testAddTextBlock() {
-		System.out.println();
+		TextBlock testText = new TextBlock() {
+            public String getText() {
+                return "TEST";
+            }
+        };
+        
+        this.dq.addTextBlock(testText);
+        assertEquals((this.dq.getBlockList().size() > 0), true);
+        assertEquals((this.dq.getTextBlockList().size() > 0), true);
 	}
 
 	@Test
