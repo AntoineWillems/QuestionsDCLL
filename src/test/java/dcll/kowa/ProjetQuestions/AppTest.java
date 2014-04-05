@@ -1,5 +1,8 @@
 package dcll.kowa.ProjetQuestions;
 
+import java.io.IOException;
+
+import dcll.kowa.ProjetQuestions.impl.wikiversity.WikiversityReaderException;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -34,5 +37,10 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+    
+    public void testMain() throws WikiversityReaderException, IOException{
+
+        App.main(null);
     }
 }
