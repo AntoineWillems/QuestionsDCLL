@@ -27,7 +27,7 @@ public class WikiversityQuestionService {
      * @throws WikiversityReaderException 
      * @throws WikiversityReaderNotEscapedCharacterException 
      */
-    public Question getQuestionFromGiftText(String giftText) throws IOException, GiftReaderException, WikiversityReaderNotEscapedCharacterException, WikiversityReaderException {
+    public Question getQuestionFromGiftText(String giftText) throws IOException, GiftReaderException, WikiversityReaderException {
         Quiz quiz = getQuizFromGiftText(giftText);
         return quiz.getQuestionList().get(0);
     }
@@ -40,7 +40,7 @@ public class WikiversityQuestionService {
      * @throws WikiversityReaderException 
      * @throws WikiversityReaderNotEscapedCharacterException 
      */
-    public Quiz getQuizFromGiftText(String giftText) throws IOException, WikiversityReaderNotEscapedCharacterException, WikiversityReaderException {
+    public Quiz getQuizFromGiftText(String giftText) throws IOException, WikiversityReaderException {
         WikiversityQuizContentHandler handler = new WikiversityQuizContentHandler();
         WikiversityReader quizReader = new WikiversityReader();
         quizReader.setQuizContentHandler(handler);

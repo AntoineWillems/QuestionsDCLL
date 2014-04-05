@@ -25,7 +25,6 @@ public class WikiversityReader implements QuizReader{
     private boolean questionHasEnded; //
     
     private boolean textHasStarted; ////
-    private boolean textHasEnded; ////
     private boolean hasSpecifiedType = false;
     private boolean answersCanStart; ////
     
@@ -33,10 +32,8 @@ public class WikiversityReader implements QuizReader{
     private boolean answerFragmentHasEnded;//
     private boolean answerHasStarted;//
     private boolean answerFeedbackHasStarted;
-    private boolean answerCreditHasStarted;
-    private boolean answerCreditHasEnded;
     
-    public void parse(Reader reader) throws WikiversityReaderException, WikiversityReaderNotEscapedCharacterException, IOException {
+    public void parse(Reader reader) throws IOException, WikiversityReaderException {
         int currentChar;
         quizContentHandler.onStartQuiz();
         
@@ -55,8 +52,6 @@ public class WikiversityReader implements QuizReader{
                 processMinusCharacter();
             } else if (currentChar == '|') {
                 processBarMonospaceCharacter();
-            } else if (currentChar == '\n'){
-            	processNewLineCharacter();
             } else{
                 processAnyCharacter(currentChar);
             }
@@ -73,13 +68,6 @@ public class WikiversityReader implements QuizReader{
 
     }
 
-    private void processNewLineCharacter() {
-		// TODO Auto-generated method stub
-		if (textHasStarted && !hasSpecifiedType)
-		{
-			flushAccumulator();
-		}
-	}
 
 	private void checkQuestionHasStarted() {
         if (!questionHasStarted) {
@@ -89,9 +77,13 @@ public class WikiversityReader implements QuizReader{
     }
 
     private void endQuiz() throws WikiversityReaderQuestionWithInvalidFormatException {
-        if (!questionHasEnded && !answerFragmentHasEnded) {
+    	if (!answerFragmentHasEnded){
             throw new WikiversityReaderQuestionWithInvalidFormatException(null);
         }
+    	if (!questionHasEnded) {
+            throw new WikiversityReaderQuestionWithInvalidFormatException(null);
+        }
+        
         if (!questionHasEnded) {
             flushAccumulator();
             questionHasEnded = true;
@@ -100,22 +92,20 @@ public class WikiversityReader implements QuizReader{
 
     }
 
-    private void processLeftBracketCharacter() throws WikiversityReaderNotEscapedCharacterException {
+    private void processLeftBracketCharacter() throws WikiversityReaderIllegalBracketCharInQuestionTextException {
         
         if (textHasStarted) {
-            throw new WikiversityReaderNotEscapedCharacterException(null);
+            throw new WikiversityReaderIllegalBracketCharInQuestionTextException("'{' ne peut être inséré dans le texte d'une question");
         }
         flushAccumulator();
         textHasStarted = true;
-        textHasEnded = false;
-        //quizContentHandler.onStartAnswerBlock();
 
     }
 
-    private void processRightBracketCharacter() throws WikiversityReaderNotEscapedCharacterException, WikiversityReaderWrongTypeDefinition {
+    private void processRightBracketCharacter() throws WikiversityReaderIllegalBracketCharBeforeQuestionStartsException, WikiversityReaderWrongTypeDefinition {
         
         if (!textHasStarted) {
-            throw  new WikiversityReaderNotEscapedCharacterException(null);
+            throw  new WikiversityReaderIllegalBracketCharBeforeQuestionStartsException("} ne peut être inséré que pour indiquer la fin du texte de la question");
         }
         logger.debug("Result: "+accumulator.toString()+" | "+"type=\"()\""+accumulator.toString().endsWith("type=\"()\""));
         if(hasSpecifiedType && !((accumulator.toString().endsWith("type=\"()\"") || (accumulator.toString().endsWith("type=\"[]\"")))))
@@ -124,23 +114,22 @@ public class WikiversityReader implements QuizReader{
         }
         flushAccumulator();
         textHasStarted = false;
-        textHasEnded = true;
         answersCanStart = true; // les réponses peuvent commencer après ça
     }
 
-    private void processPlusCharacter() throws WikiversityReaderNotEscapedCharacterException {
+    private void processPlusCharacter() throws WikiversityReaderCannotStartAnswersException {
         processAnswerPrefix('+');
     }
 
-    private void processMinusCharacter() throws WikiversityReaderNotEscapedCharacterException {
+    private void processMinusCharacter() throws WikiversityReaderCannotStartAnswersException {
         processAnswerPrefix('-');
     }
 
-    private void processAnswerPrefix(char prefix) throws WikiversityReaderNotEscapedCharacterException {
+    private void processAnswerPrefix(char prefix) throws WikiversityReaderCannotStartAnswersException {
         
     	//Si le text n'a pas fini on ne peux pas donner de reponses
         if (!answersCanStart) {
-            throw new WikiversityReaderNotEscapedCharacterException(null);
+            throw new WikiversityReaderCannotStartAnswersException("Il faut d'abord décrire la question entre { et } avant d'entrer les réponses");
         }
         if(!answerFragmentHasStarted)
         {
@@ -157,19 +146,13 @@ public class WikiversityReader implements QuizReader{
         } else {
             answerHasStarted = true;
         }
-        answerCreditHasStarted = false;
-        answerCreditHasEnded = false;
         getQuizContentHandler().onStartAnswer(String.valueOf(prefix)); // it marks the beginning of a new one too
     }
 
-    /**
-     * A refaire pour gerer la lecture du type et des coefficients
-     * @throws GiftReaderNotEscapedCharacterException
-     */
-    private void processBarMonospaceCharacter() throws WikiversityReaderNotEscapedCharacterException {
+    private void processBarMonospaceCharacter() throws WikiversityReaderIllegalVerticalBarPositionException {
     	
     	if ((!answerHasStarted && !textHasStarted) || answerFeedbackHasStarted) {
-            throw new WikiversityReaderNotEscapedCharacterException(null);
+            throw new WikiversityReaderIllegalVerticalBarPositionException("'|' ne peut être inséré qu'après une réponse sous cette séquence: || pour indiquer un feedback");
         }
     	
     	if(textHasStarted)
@@ -192,25 +175,23 @@ public class WikiversityReader implements QuizReader{
         
     }
 
-    private void processAnyCharacter(int currentChar) throws WikiversityReaderNotEscapedCharacterException {
+    private void processAnyCharacter(int currentChar){
         if (accumulator == null) {
             accumulator = new StringBuffer();
         }
         accumulator.append((char) currentChar);
-        if (answerHasStarted && (nextChar == '\n')) { // the '=' or '~' char marks the end of the current answer
+        if (answerHasStarted && (nextChar == -1)) { //Vérifier si c'est la dernière réponse
         	flushAccumulator();
             getQuizContentHandler().onEndAnswer();
             getQuizContentHandler().onEndAnswerBlock();
             answerFragmentHasEnded = true;
             answerFragmentHasStarted = false;
-            hasSpecifiedType = false;
-        }
-            
-        if (controlCharAccumulator != -1) { // if a control caracter is present,
-            if (controlCharAccumulator != '|') {  // it must be a \
-                throw new WikiversityReaderNotEscapedCharacterException(null);
-            }
+            questionHasStarted = false;
+            questionHasEnded = true;
             controlCharAccumulator = -1;
+            hasSpecifiedType = false;
+            answersCanStart = false;
+            answerHasStarted = false;
         }
     }
 
