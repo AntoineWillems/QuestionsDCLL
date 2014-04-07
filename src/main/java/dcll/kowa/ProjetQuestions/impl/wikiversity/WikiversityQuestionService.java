@@ -48,18 +48,5 @@ public class WikiversityQuestionService {
         return handler.getQuiz();
     }
 
-    private DefaultAnswer noResponseAnswer;
 
-    /**
-     * @return the no response answer
-     */
-    public final DefaultAnswer getNoResponseAnswer() {
-        if (noResponseAnswer == null) {
-            noResponseAnswer = new DefaultAnswer();
-            noResponseAnswer.setPercentCredit(0f);
-            noResponseAnswer.setIdentifier(NO_RESPONSE);
-            noResponseAnswer.setTextValue(NO_RESPONSE);
-        }
-        return noResponseAnswer;
-    }
 }
