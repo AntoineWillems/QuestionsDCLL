@@ -8,14 +8,7 @@ package dcll.kowa.ProjetQuestions.impl.wikiversity;
 public class WikiversityReaderQuestionWithInvalidFormatException extends
 		WikiversityReaderException {
 
-	/**
-	 * WikiversityReaderQuestionWithInvalidFormatException
-	 */
-	public WikiversityReaderQuestionWithInvalidFormatException() {
-		super("");
-		// TODO Auto-generated constructor stub
-	}
-	
+
 	/**
 	 * WikiversityReaderQuestionWithInvalidFormatException
 	 * @param message the error message
