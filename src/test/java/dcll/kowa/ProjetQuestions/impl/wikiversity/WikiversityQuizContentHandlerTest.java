@@ -1,4 +1,4 @@
-package dcll.kowa.ProjetQuestions;
+package dcll.kowa.ProjetQuestions.impl.wikiversity;
 
 import org.junit.Test;
 

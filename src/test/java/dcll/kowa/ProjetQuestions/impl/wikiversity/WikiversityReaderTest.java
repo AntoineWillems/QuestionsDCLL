@@ -1,12 +1,15 @@
-package dcll.kowa.ProjetQuestions;
+package dcll.kowa.ProjetQuestions.impl.wikiversity;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
+
+import dcll.kowa.ProjetQuestions.QuizContentHandler;
 import dcll.kowa.ProjetQuestions.impl.wikiversity.WikiversityQuizContentHandler;
 import dcll.kowa.ProjetQuestions.impl.wikiversity.WikiversityReader;
 import dcll.kowa.ProjetQuestions.impl.wikiversity.WikiversityReaderException;
