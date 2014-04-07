@@ -1,4 +1,4 @@
-package dcll.kowa.ProjetQuestions;
+package dcll.kowa.ProjetQuestions.impl;
 
 import org.junit.After;
 import org.junit.Before;

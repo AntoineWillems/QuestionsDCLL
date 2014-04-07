@@ -1,4 +1,4 @@
-package dcll.kowa.ProjetQuestions;
+package dcll.kowa.ProjetQuestions.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import dcll.kowa.ProjetQuestions.AnswerBlock;
+import dcll.kowa.ProjetQuestions.QuestionBlock;
+import dcll.kowa.ProjetQuestions.QuestionType;
+import dcll.kowa.ProjetQuestions.TextBlock;
 import dcll.kowa.ProjetQuestions.impl.DefaultAnswerBlock;
 import dcll.kowa.ProjetQuestions.impl.DefaultQuestion;
 

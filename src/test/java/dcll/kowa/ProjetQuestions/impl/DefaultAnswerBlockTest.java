@@ -1,4 +1,4 @@
-package dcll.kowa.ProjetQuestions;
+package dcll.kowa.ProjetQuestions.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import dcll.kowa.ProjetQuestions.Answer;
 import dcll.kowa.ProjetQuestions.impl.DefaultAnswer;
 import dcll.kowa.ProjetQuestions.impl.DefaultAnswerBlock;
 import junit.framework.TestCase;

@@ -2,6 +2,7 @@ package dcll.kowa.ProjetQuestions;
 
 import java.io.IOException;
 
+import dcll.kowa.ProjetQuestions.App;
 import dcll.kowa.ProjetQuestions.impl.wikiversity.WikiversityReaderException;
 import junit.framework.Test;
 import junit.framework.TestCase;
