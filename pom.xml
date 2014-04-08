@@ -52,6 +52,16 @@
         		<groupId>org.codehaus.mojo</groupId>
         		<artifactId>cobertura-maven-plugin</artifactId>
         		<version>2.6</version>
+        		<configuration>
+		          <instrumentation>
+		            <ignores>
+		              <ignore>QuestionsDCLL/src/main/java/dcll/kowa/ProjetQuestions/App.java</ignore>
+		            </ignores>
+		            <excludes>
+		              <exclude>QuestionsDCLL/src/main/java/dcll/kowa/ProjetQuestions/App.java</exclude>
+		            </excludes>
+		          </instrumentation>
+		        </configuration>
       		</plugin>
     	</plugins>
   	</reporting>
