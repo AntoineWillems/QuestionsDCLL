@@ -2,13 +2,8 @@ package dcll.kowa.ProjetQuestions.impl.wikiversity;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.List;
-
-import dcll.kowa.ProjetQuestions.Answer;
 import dcll.kowa.ProjetQuestions.Question;
 import dcll.kowa.ProjetQuestions.Quiz;
-import dcll.kowa.ProjetQuestions.impl.DefaultAnswer;
-import dcll.kowa.ProjetQuestions.impl.DefaultAnswerBlock;
 
 /**
  * WikiversityQuestionService
