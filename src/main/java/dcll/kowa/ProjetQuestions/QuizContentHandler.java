@@ -33,16 +33,6 @@ public interface QuizContentHandler {
     public void onString(String str);
 
     /**
-     * Receive notification of the beginning of a title
-     */
-    public void onStartTitle();
-
-    /**
-     * Receive notification of the end of a title
-     */
-    public void onEndTitle();
-
-    /**
      * Receive notification of the beginning of an answer block
      */
     public void onStartAnswerBlock();

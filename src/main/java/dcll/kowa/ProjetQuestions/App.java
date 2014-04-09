@@ -23,7 +23,7 @@ public final class App {
 	 */
     public static void main(String[] args) throws WikiversityReaderException, IOException
     {
-    	/*
+    	
     	BasicConfigurator.configure();
     	
     	try {
@@ -41,9 +41,9 @@ public final class App {
     		Question parsedQuestion = questionService.getQuestionFromGiftText(maQuestion);
     		int nbAnswerBlockList = parsedQuestion.getAnswerBlockList().size();
     		int nbTextBlockList = parsedQuestion.getBlockList().size();
-    		*/
+    		
     		/*Affichage des résultats du parsing */
-    		/*
+    		
     		System.out.print("\n\nTitre: ");
     		System.out.println(parsedQuestion.getTitle());
     		System.out.println("\n----------------\n\n");
@@ -67,6 +67,6 @@ public final class App {
     	} catch (Exception e) {
     		System.out.println(e.toString());
     	}
-    	*/
+    	
     }
 }

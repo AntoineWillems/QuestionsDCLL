@@ -32,7 +32,6 @@ public class WikiversityQuizContentHandler implements QuizContentHandler {
     private DefaultQuestion currentQuestion;
     private DefaultAnswerBlock currentAnswerBlock;
     private DefaultAnswer currentAnswer;
-    private StringBuffer currentTitle;
     private boolean answerCreditIsBeenBuilt;
     private boolean feedbackIsBeenBuilt;
     private int answerCounter;
@@ -77,20 +76,6 @@ public class WikiversityQuizContentHandler implements QuizContentHandler {
     }
 
 
-    /**
-     * Receive notification of the beginning of a title
-     */
-    public final void onStartTitle() {
-        currentTitle = new StringBuffer();
-    }
-
-    /**
-     * Receive notification of the end of a title
-     */
-    public final void onEndTitle() {
-        currentQuestion.setTitle(currentTitle.toString());
-        currentTitle = null;
-    }
 
     /**
      * Receive notification of the beginning of an answer fragment
@@ -168,10 +153,7 @@ public class WikiversityQuizContentHandler implements QuizContentHandler {
      */
     public final void onString(final String str) {
         String trimedStr = str.trim();
-        if (currentTitle != null) {
-            currentTitle.append(trimedStr);
-            logger.debug("currentTitle => " + currentTitle.toString());
-        } else if (answerCreditIsBeenBuilt) {
+        if (answerCreditIsBeenBuilt) {
             currentAnswer.setPercentCredit(new Float(trimedStr));
         } else if (feedbackIsBeenBuilt) {
             currentAnswer.setFeedback(trimedStr);

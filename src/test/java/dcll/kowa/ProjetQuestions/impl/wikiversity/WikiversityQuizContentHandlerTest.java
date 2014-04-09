@@ -42,16 +42,6 @@ public class WikiversityQuizContentHandlerTest extends TestCase{
 	}
 	
 	@Test
-	public void testOnStartTitle(){
-		wqch.onStartTitle();
-	}
-	
-	@Test
-	public void testOnEndTitle(){
-		//wqch.onEndTitle();
-	}
-	
-	@Test
 	public void testOnStartAnswerBlock(){
 		wqch.onStartAnswerBlock();
 	}
@@ -90,12 +80,6 @@ public class WikiversityQuizContentHandlerTest extends TestCase{
 	@Test
 	public void testOnEndAnswerFeedBack(){
 		wqch.onEndAnswerFeedBack();
-	}
-	
-	@Test
-	public void testOnString(){
-		wqch.onStartTitle();
-		wqch.onString("");
 	}
 	
 	@Test
